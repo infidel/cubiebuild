@@ -42,3 +42,5 @@ fi
 
 time make build
 time make ${BOARD-cubieboard2}.img
+# Need to be writable for pyboot-tftp-dd
+chmod a+w ${BOARD-cubieboard2}.img

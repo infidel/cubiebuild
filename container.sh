@@ -1,7 +1,10 @@
 #!/bin/sh
-if [ ! -d .git ] ; then
-    echo This script needs to run from the repository root
-    exit 1
+if [ "$1" == "-i" ] ; then
+    interactive=-it
+    shift
 fi
-# Note that hyphens aren't allowed in variable names, and underscores aren't allowed in hostnames
-docker run --rm -e "http_proxy=http://proxy:3142/" -e DISTROVER=trusty --link apt-cacher:proxy --privileged -it -v `pwd`:/xen-arm-builder -w /xen-arm-builder xen-sdcard-builder
+docker run ${interactive} --rm --privileged \
+    --link apt-cacher:proxy -e "http_proxy=http://proxy:3142/" \
+    -e BOARD=cubieboard2 -e DISTROVER=trusty \
+    -v /opt/build:/opt/build -w /opt/build/xen-arm-builder \
+    xen-sdcard-builder "$@"
