@@ -1,0 +1,41 @@
+# 
+# Special (optional) u-boot environment variables used by pyboot
+#
+#   initenv: command run early to initialize env (e.g. load uEnv.txt from MMC)
+#   preboot: command run early for pre-init (e.g. usb start, dcache off, ...)
+#   netargs: command run after DHCP.  Useful for using u-boot variables that
+#            are set after DHCP (ipaddr, netmask, gatewayip, rootpath, ...)
+#
+
+[DEFAULT]
+arch: arm
+conmux_host: localhost
+serverip: 192.168.2.105
+tftproot: /tftpboot
+repodir: /opt/build/xen-arm-builder
+basedir: %(repodir)s/linux/arch/%(arch)s/boot
+image: %(basedir)s/zImage
+dtb_base: %(basedir)s/dts
+
+debug=debug initcall_debug
+
+mmcpart=/dev/mmcblk0p2
+rootfstype=ext4
+mmcroot=rw root=%(mmcpart)s rootwait rootfstype=%(rootfstype)s
+
+
+[cubieboard2]
+loadaddr: 0x41000000
+dtb_addr: 0x42000000
+dtb: %(dtb_base)s/sun7i-a20-cubieboard2.dtb
+initrd_addr: 0x43000000
+initrd: /tftpboot/ramdisk.img
+#	bootargs=console=ttyS0,115200 debug earlyprintk %(mmcroot)s
+uboot_env:
+	bootargs=console=ttyS0,115200 earlyprintk break ip=dhcp
+	fdt_high=0xffffffff
+	initrd_high=0xffffffff
+
+# each test entry can be run automaticaly.  See '-t' option to pyboot
+[test]
+init: mount -t proc none /proc; mount -t sysfs none /sys; mount -t debugfs none /sys/kernel/debug
