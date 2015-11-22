@@ -10,10 +10,11 @@ which conmux-console
 echo Checking for image
 test -f ${imgsrc}
 echo Checking for TFTP server
-netstat -n -u -a | grep ':68 '
+netstat -n -u -a | grep ':69 '
 test -d /tftpboot
 test -w /tftpboot
 
 rm -f ${imgdest}
 ln ${imgsrc} ${imgdest}
-pyboot -l /tmp/pyboot-tftp-dd.log -v cubieboard2
+pyboot -t -l /tmp/pyboot-tftp-dd.log -v cubieboard2
+chmod a+w /tmp/pyboot-tftp-dd.*
