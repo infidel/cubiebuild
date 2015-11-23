@@ -12,10 +12,10 @@ case "${args[0]}" in
         echo "This is a test"
         env
         ;;
-    pyboot-tftp-dd)
+    load-image)
         cd ${scripts}/pyboot-tftp-dd
-        #${scripts}/jenkins-external.sh ./run.sh
-        ./run.sh
+        nohup ${scripts}/jenkins-external.sh load-image_external ./run.sh > /tmp/${USER}-nohup-load-image.log 2>&1 &
+        tail -f /tmp/${USER}-nohup-load-image.log
         ;;
     xen-arm-builder)
         ${scripts}/container.sh ${scripts}/jenkins-external.sh xen-arm-builder_external ${scripts}/rebuild.sh

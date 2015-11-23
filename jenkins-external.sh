@@ -5,7 +5,7 @@ which curl >/dev/null
 
 buildname="$1"
 shift
-logbase=/tmp/jenkins-external
+logbase=/tmp/jenkins-external-${buildname}
 logfile=${logbase}.log
 logxml=${logbase}.xml
 api_token=`cat /opt/build/api-token.txt`

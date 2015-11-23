@@ -37,5 +37,5 @@ uboot_env:
 	initrd_high=0xffffffff
 
 # each test entry can be run automaticaly.  See '-t' option to pyboot
-[test]
-dd: tftp -g -r cubieboard2.img -l - 192.168.2.105 | dd of=/dev/mmcblk0 bs=4096
+#[test]
+#dd: tftp -g -r cubieboard2.img -l - 192.168.2.105 | dd of=/dev/mmcblk0 bs=4096
