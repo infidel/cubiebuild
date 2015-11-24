@@ -13,7 +13,7 @@ case "${args[0]}" in
         env
         ;;
     load-image)
-        cd ${scripts}/pyboot-tftp-dd
+        cd ${scripts}/load-image
         nohup ${scripts}/jenkins-external.sh load-image_external ./run.sh > /tmp/${USER}-nohup-load-image.log 2>&1 &
         tail -f /tmp/${USER}-nohup-load-image.log
         ;;

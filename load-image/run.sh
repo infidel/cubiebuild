@@ -16,7 +16,7 @@ test -w /tftpboot
 
 rm -f ${imgdest}
 ln ${imgsrc} ${imgdest}
-pyboot -l /tmp/${USER}-pyboot-tftp-dd.log -v cubieboard2
+pyboot -l /tmp/${USER}-load-image.log -v cubieboard2
 set +e
 rm /tmp/${USER}-load_img.log
 ./load_img.py
